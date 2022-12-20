@@ -1,7 +1,6 @@
 #pragma warning disable CS8618
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 
 namespace AugnosBlog.Models
 {
@@ -36,7 +35,7 @@ namespace AugnosBlog.Models
         public IFormFile Image { get; set; }
 
         // Navigation Properties
-        public virtual IdentityUser Author { get; set; }
+        public virtual BlogUser Author { get; set; }
         public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();
     }
 }

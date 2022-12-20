@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AugnosBlog.Enums;
-using Microsoft.AspNetCore.Identity;
 
 namespace AugnosBlog.Models
 {
@@ -42,7 +41,7 @@ namespace AugnosBlog.Models
 
         // Navigation Properties
         public virtual Blog Blog { get; set; }
-        public virtual IdentityUser Author { get; set; }
+        public virtual BlogUser Author { get; set; }
         public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }

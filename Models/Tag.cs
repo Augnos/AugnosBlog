@@ -1,6 +1,5 @@
 #pragma warning disable CS8618
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
 
 namespace AugnosBlog.Models
 {
@@ -16,6 +15,6 @@ namespace AugnosBlog.Models
 
         // Navigation Properties
         public virtual Post Post { get; set; }
-        public virtual IdentityUser Author { get; set; }
+        public virtual BlogUser Author { get; set; }
     }
 }
