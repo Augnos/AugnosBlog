@@ -1,0 +1,14 @@
+﻿@model List<Blog>
+@{
+    ViewData["Title"] = "Blogs";
+}
+
+
+<div class="container">
+    <h2 class="fw-light display-4 text-center mb-5">All Blogs</h2>
+
+    @foreach (Blog blog in Model)
+    {
+        <p><a href="/categories/@blog.BlogId">@blog.Name</a></p>
+    }
+</div>
