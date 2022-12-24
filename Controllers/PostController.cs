@@ -4,15 +4,15 @@ using AugnosBlog.Models;
 
 namespace AugnosBlog.Controllers;
 
-public class BlogController : Controller
+public class PostController : Controller
 {
     // ********** Fields **********
-    private readonly ILogger<BlogController> _logger;
+    private readonly ILogger<PostController> _logger;
     private MyContext _context;
 
 
     // ********** Constructor **********
-    public BlogController(ILogger<BlogController> logger, MyContext context)
+    public PostController(ILogger<PostController> logger, MyContext context)
     {
         _logger = logger;
         _context = context;
@@ -24,85 +24,85 @@ public class BlogController : Controller
     [HttpGet("")]
     public IActionResult Index()
     {
-        List<Blog> AllBlogs = _context.Blogs.ToList();
+        List<Post> AllPosts = _context.Posts.ToList();
 
-        return View("Index", AllBlogs);
+        return View("Index", AllPosts);
     }
 
     // ********** New **********
-    [HttpGet("/blogs/new")]
-    public IActionResult NewBlog()
+    [HttpGet("/posts/new")]
+    public IActionResult NewPost()
     {
-        return View("NewBlog");
+        return View("NewPost");
     }
 
     // ********** Create - POST **********
-    [HttpPost("blogs/create")]
-    public IActionResult CreateBlog(Blog newBlog)
+    [HttpPost("posts/create")]
+    public IActionResult CreatePost(Post newPost)
     {
         if (ModelState.IsValid)
         {
-            _context.Add(newBlog);
+            _context.Add(newPost);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        return NewBlog();
+        return NewPost();
     }
 
     // ********** Show **********
-    [HttpGet("/blogs/{id}")]
-    public IActionResult ShowBlog(int id)
+    [HttpGet("/posts/{id}")]
+    public IActionResult ShowPost(int id)
     {
-        Blog ViewBlog = _context.Blogs.First(blog => blog.BlogId == id);
-        if (ViewBlog == null)
+        Post ViewPost = _context.Posts.First(post => post.PostId == id);
+        if (ViewPost == null)
         {
             return Index();
         }
-        return View("ShowBlog", ViewBlog);
+        return View("ShowPost", ViewPost);
     }
 
     // ********** Edit **********
-    [HttpGet("/blogs/{id}/edit")]
-    public IActionResult EditBlog(int id)
+    [HttpGet("/posts/{id}/edit")]
+    public IActionResult EditPost(int id)
     {
-        Blog ViewBlog = _context.Blogs.First(blog => blog.BlogId == id);
-        if (ViewBlog == null)
+        Post ViewPost = _context.Posts.First(post => post.PostId == id);
+        if (ViewPost == null)
         {
             return Index();
         }
-        return View("EditBlog", ViewBlog);
+        return View("EditPost", ViewPost);
     }
 
     // ********** Update - POST **********
-    [HttpPost("/blogs/{id}/update")]
-    public IActionResult UpdateBlog(Blog newBlog, int id)
+    [HttpPost("/posts/{id}/update")]
+    public IActionResult UpdatePost(Post newPost, int id)
     {
         if (ModelState.IsValid)
         {
-            Blog OldBlog = _context.Blogs.First(blog => blog.BlogId == id);
+            Post OldPost = _context.Posts.First(post => post.PostId == id);
 
-            // Creates new Blog if current blog doesn't actually exist.
-            if (OldBlog == null)
+            // Creates new Post if current post doesn't actually exist.
+            if (OldPost == null)
             {
-                return CreateBlog(newBlog);
+                return CreatePost(newPost);
             }
-            // Update all OldBlog fields with newBlog values
-            // OldBlog.Name = newBlog.Name;
-            // OldBlog.Description = newBlog.Description;
-            // OldBlog.Price = newBlog.Price;
-            // OldBlog.UpdatedAt = DateTime.Now;
+            // Update all OldPost fields with newPost values
+            // OldPost.Name = newPost.Name;
+            // OldPost.Description = newPost.Description;
+            // OldPost.Price = newPost.Price;
+            // OldPost.UpdatedAt = DateTime.Now;
             _context.SaveChanges();
-            return ShowBlog(id);
+            return ShowPost(id);
         }
-        return EditBlog(id);
+        return EditPost(id);
     }
 
     // ********** Destroy - POST **********
-    [HttpPost("/blogs/{id}/destroy")]
-    public IActionResult DestroyBlog(int id)
+    [HttpPost("/posts/{id}/destroy")]
+    public IActionResult DestroyPost(int id)
     {
-        Blog oneBlog = _context.Blogs.Single(d => d.BlogId == id);
-        _context.Blogs.Remove(oneBlog);
+        Post onePost = _context.Posts.Single(d => d.PostId == id);
+        _context.Posts.Remove(onePost);
         _context.SaveChanges();
         return Index();
     }
